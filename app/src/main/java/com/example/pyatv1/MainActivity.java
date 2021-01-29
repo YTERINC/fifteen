@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 TextView mTextView;
-    int[][] arr = new int[4][4];
+  /*  int[][] arr = new int[4][4];
     Random rnd = new Random();
 
 int k;
@@ -18,7 +18,7 @@ int i;
 int j;
 int i1;
 int j1;
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ int j1;
         // mTextView.setText("test");
         //mTextView.setText(String.valueOf(b[3][3]));
 
-        for (i = 0; i < 4; i++)
+    /*    for (i = 0; i < 4; i++)
             for (j = 0; j < 4; j++) {
                 arr[i][j] = 77;
             }
@@ -50,7 +50,8 @@ int j1;
             for (j = 0; j < 4; j++)
                 mTextView.append(arr[i][j] + "    ");
                 mTextView.append("\n");
-        }
+        }*/
+
     }
 
     public void onClick(View view) {
