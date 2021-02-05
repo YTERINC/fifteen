@@ -18,10 +18,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NewGame"
-            android:label="NewGame">
-        </activity>
-
     </application>
 
 </manifest>
