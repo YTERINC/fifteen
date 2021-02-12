@@ -7,12 +7,13 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
-
 
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();
     public ComputationalFunctions сompFunct = new ComputationalFunctions();
+    public SoundGames SG = new SoundGames(getContext());
+
+
     int[][] arr = new int[4][4];
     int countStart = 0; // счетчик количества вывозов onDraw
     final int X1 = 50; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
@@ -35,9 +36,12 @@ public class MainGameGraphics extends View {
     int xD;
     int yD;
 
-    public MainGameGraphics(Context context) {
+   public MainGameGraphics(Context context) {
         super(context);
+       SG.initSound();
     }
+
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -124,17 +128,19 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         сompFunct.j0 > 0) {
+                    SG.playSound();
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0][сompFunct.j0-1];
                     arr[сompFunct.i0][сompFunct.j0-1] = tempArr;
                     сompFunct.j0 = сompFunct.j0-1;
-                   invalidate();
+                     invalidate();
                 }
                 if (evX >= сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0+1) &&
                         evX <= сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0+1) &&
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         сompFunct.j0 < 3) {
+                    SG.playSound();
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0][сompFunct.j0+1];
                     arr[сompFunct.i0][сompFunct.j0+1] = tempArr;
@@ -146,6 +152,7 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0-1) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0-1) &&
                         сompFunct.i0 > 0) {
+                    SG.playSound();
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0-1][сompFunct.j0];
                     arr[сompFunct.i0-1][сompFunct.j0] = tempArr;
@@ -157,6 +164,7 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0+1) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0+1) &&
                         сompFunct.i0 < 3) {
+                    SG.playSound();
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0+1][сompFunct.j0];
                     arr[сompFunct.i0+1][сompFunct.j0] = tempArr;
@@ -167,5 +175,8 @@ public class MainGameGraphics extends View {
         }
         return true;
     }
+
+
+
 
 }
