@@ -15,7 +15,7 @@ public class MainGameGraphics extends View {
 
 
     int[][] arr = new int[4][4];
-    int countStart = 0; // счетчик количества вывозов onDraw
+   // int countStart = 0; // счетчик количества вывозов onDraw
     final int X1 = 50; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
     final int Y1 = 200; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
@@ -39,10 +39,14 @@ public class MainGameGraphics extends View {
     boolean switchMusic = true;
     boolean gameOver = false;
 
+    int width;
+    int height;
+
 
    public MainGameGraphics(Context context) {
         super(context);
        SG.initSound("click.mp3");
+       сompFunct.createMixedArray(arr);
     }
 
 
@@ -51,8 +55,8 @@ public class MainGameGraphics extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
+        width = canvas.getWidth();
+        height = canvas.getHeight();
 
         x2 = width - X1;
         y2 = x2 - X1 + Y1;
@@ -78,9 +82,9 @@ public class MainGameGraphics extends View {
         canvas.drawRect(x3, y3, x4, y4, mPaint);
 
 /////// Инициализация массива
-        if (countStart == 0) {
+     /*   if (countStart == 0) {
             сompFunct.createMixedArray(arr);
-        }
+        }*/
  ///////////////////////////////////
 
         for (int i = 0; i < 4; i++)
@@ -125,8 +129,6 @@ public class MainGameGraphics extends View {
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(Color.RED);
             canvas.drawText("НОВАЯ ИГРА", (x2 - X1)/2 + X1, y2 + 50 + yD*3/4, mPaint);
-
-
         }
 
             // индикаторы
@@ -139,8 +141,20 @@ public class MainGameGraphics extends View {
         canvas.drawText(String.valueOf(сompFunct.j0), 30, height - 96, mPaint);
         canvas.drawText(String.valueOf(сompFunct.checkWin(arr)), 30, height - 150, mPaint);
         /////////////////
-        countStart = +1;
+     //   countStart = +1;
         ////////////////
+
+        /// звук выкл/вкл
+
+        mPaint.setColor(Color.YELLOW);
+        canvas.drawRect(width - xD - 20, height - yD*1/2 -20, width - 20, height - 20, mPaint);
+        mPaint.setTextSize(yD * 2 / 5);
+        mPaint.setTextAlign(Paint.Align.CENTER);
+        mPaint.setColor(Color.RED);
+        canvas.drawText("ЗВУК", xD/2 + width - xD - 20, height - 20 - yD*1/8, mPaint);
+//////////
+
+
 
     }
 
@@ -216,6 +230,21 @@ public class MainGameGraphics extends View {
                    SG.playSound(switchMusic);
                    invalidate();
                }
+
+                //// кнопка "ЗВУК"
+                if (evX >= width - xD - 20 &&
+                        evX <= width - 20 &&
+                        evY >= height - yD*1/2 -20 &&
+                        evY <= height - 20
+                        ) {
+                   switchMusic = !switchMusic;
+
+                  // SG.playSound(switchMusic);
+                    invalidate();
+                }
+
+
+
                 break;
         }
         return true;
