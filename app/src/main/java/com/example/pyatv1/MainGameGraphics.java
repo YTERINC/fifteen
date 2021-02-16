@@ -37,6 +37,7 @@ public class MainGameGraphics extends View {
     int yD;
     // включатель звука
     boolean switchMusic = true;
+    boolean gameOver = false;
 
 
    public MainGameGraphics(Context context) {
@@ -61,12 +62,14 @@ public class MainGameGraphics extends View {
         x4 = x2 - THICKNESS_BIG_FRAME;
         y4 = y2 - THICKNESS_BIG_FRAME;
 
+
         // стиль Заливка
         mPaint.setStyle(Paint.Style.FILL);
         // закрашиваем холст
         mPaint.setColor(Color.GREEN);
 
         canvas.drawPaint(mPaint);
+
         // Рисуем внешний прямоугольник
         mPaint.setColor(Color.BLUE);
         canvas.drawRect(X1, Y1, x2, y2, mPaint);
@@ -98,7 +101,33 @@ public class MainGameGraphics extends View {
                     mPaint.setTextAlign(Paint.Align.CENTER);
                     canvas.drawText(String.valueOf(arr[i][j]), xin2 - (xin2 - xin1) / 2, yin2 - (yin2 - yin1) / 2 + yD / 4, mPaint);
                 }
-            }
+        }
+
+        if (сompFunct.checkWin(arr) == true) {
+// ПОБЕДА
+            // стиль Заливка
+            mPaint.setStyle(Paint.Style.FILL);
+            // закрашиваем холст
+            mPaint.setColor(Color.GREEN);
+            canvas.drawPaint(mPaint);
+
+            mPaint.setColor(Color.RED);
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setAntiAlias(true);
+            mPaint.setTextSize(yD * 2 / 3);
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText("ПОБЕДА!", (x4 - x3)/2 + x3, (y4 - y3)/2 + y3, mPaint);
+            gameOver = true;
+/// Новая игра
+            mPaint.setColor(Color.YELLOW);
+            canvas.drawRect(X1, y2 + 50, x2, y2 + 50 + yD, mPaint);
+            mPaint.setTextSize(yD * 2 / 3);
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mPaint.setColor(Color.RED);
+            canvas.drawText("НОВАЯ ИГРА", (x2 - X1)/2 + X1, y2 + 50 + yD*3/4, mPaint);
+
+
+        }
 
             // индикаторы
         mPaint.setColor(Color.BLUE);
@@ -111,6 +140,7 @@ public class MainGameGraphics extends View {
         canvas.drawText(String.valueOf(сompFunct.checkWin(arr)), 30, height - 150, mPaint);
         /////////////////
         countStart = +1;
+        ////////////////
 
     }
 
@@ -130,7 +160,7 @@ public class MainGameGraphics extends View {
                         evX <= сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0-1) &&
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
-                        сompFunct.j0 > 0) {
+                        сompFunct.j0 > 0 && gameOver == false) {
                     SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0][сompFunct.j0-1];
@@ -142,7 +172,7 @@ public class MainGameGraphics extends View {
                         evX <= сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0+1) &&
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
-                        сompFunct.j0 < 3) {
+                        сompFunct.j0 < 3 && gameOver == false) {
                     SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0][сompFunct.j0+1];
@@ -154,7 +184,7 @@ public class MainGameGraphics extends View {
                         evX <= сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0) &&
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0-1) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0-1) &&
-                        сompFunct.i0 > 0) {
+                        сompFunct.i0 > 0 && gameOver == false) {
                     SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0-1][сompFunct.j0];
@@ -166,7 +196,7 @@ public class MainGameGraphics extends View {
                         evX <= сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0) &&
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0+1) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0+1) &&
-                        сompFunct.i0 < 3) {
+                        сompFunct.i0 < 3 && gameOver == false) {
                     SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0+1][сompFunct.j0];
@@ -174,12 +204,21 @@ public class MainGameGraphics extends View {
                     сompFunct.i0 = сompFunct.i0+1;
                     invalidate();
                 }
+
+                //// кнопка "НОВАЯ ИГРА"
+               if (evX >= X1 &&
+                        evX <= x2 &&
+                        evY >= y2 + 50 &&
+                        evY <= y2 + 50 + yD &&
+                        gameOver == true) {
+                   gameOver = false;
+                   сompFunct.createMixedArray(arr);
+                   SG.playSound(switchMusic);
+                   invalidate();
+               }
                 break;
         }
         return true;
     }
-
-
-
 
 }
