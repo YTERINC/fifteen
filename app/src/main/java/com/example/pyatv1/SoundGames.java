@@ -24,7 +24,7 @@ public class SoundGames {
     }
 
 
-    public void initSound() {
+    public void initSound(String fileName) {
 
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // Для устройств до Android 5
@@ -41,13 +41,13 @@ public class SoundGames {
         }
         mAssetManager = context.getAssets();
         // получим идентификаторы
-        mCatSound = loadSound("click.mp3");
+        mCatSound = loadSound(fileName);
     }
 
 
 
-    public int playSound() {
-        if (mCatSound > 0) {
+    public int playSound(boolean switchMusic) {
+        if (mCatSound > 0 && switchMusic == true) {
             mStreamID = mSoundPool.play(mCatSound, 1, 1, 1, 0, 1);
         }
         return mStreamID;

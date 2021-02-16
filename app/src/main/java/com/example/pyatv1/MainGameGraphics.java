@@ -35,10 +35,13 @@ public class MainGameGraphics extends View {
     // размеры одного квадратика для рассчетов
     int xD;
     int yD;
+    // включатель звука
+    boolean switchMusic = true;
+
 
    public MainGameGraphics(Context context) {
         super(context);
-       SG.initSound();
+       SG.initSound("click.mp3");
     }
 
 
@@ -128,7 +131,7 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         сompFunct.j0 > 0) {
-                    SG.playSound();
+                    SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0][сompFunct.j0-1];
                     arr[сompFunct.i0][сompFunct.j0-1] = tempArr;
@@ -140,7 +143,7 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0) &&
                         сompFunct.j0 < 3) {
-                    SG.playSound();
+                    SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0][сompFunct.j0+1];
                     arr[сompFunct.i0][сompFunct.j0+1] = tempArr;
@@ -152,7 +155,7 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0-1) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0-1) &&
                         сompFunct.i0 > 0) {
-                    SG.playSound();
+                    SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0-1][сompFunct.j0];
                     arr[сompFunct.i0-1][сompFunct.j0] = tempArr;
@@ -164,7 +167,7 @@ public class MainGameGraphics extends View {
                         evY >= сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0+1) &&
                         evY <= сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, сompFunct.i0+1) &&
                         сompFunct.i0 < 3) {
-                    SG.playSound();
+                    SG.playSound(switchMusic);
                     tempArr = arr[сompFunct.i0][сompFunct.j0];
                     arr[сompFunct.i0][сompFunct.j0] = arr[сompFunct.i0+1][сompFunct.j0];
                     arr[сompFunct.i0+1][сompFunct.j0] = tempArr;
