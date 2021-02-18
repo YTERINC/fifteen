@@ -24,7 +24,7 @@ public class ComputationalFunctions {
         j0 = 3;
 
         // размешиваем массив правильными ходами
-         for (int count2 = 0; count2 < 500; count2++) {
+         for (int count2 = 0; count2 < 5; count2++) {
              rand = rnd.nextInt(4); // случайный ход от 0 до 3
               // rand=0 - перемещение пустой клетке (0) влево
               // rand=1 - перемещение пустой клетке (0) вверх

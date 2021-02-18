@@ -7,15 +7,13 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();
     public ComputationalFunctions сompFunct = new ComputationalFunctions();
     public SoundGames SG = new SoundGames(getContext());
-
+    public SoundGames SGFinish = new SoundGames(getContext());
 
     int[][] arr = new int[4][4];
-   // int countStart = 0; // счетчик количества вывозов onDraw
     final int X1 = 50; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
     final int Y1 = 200; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
@@ -37,19 +35,34 @@ public class MainGameGraphics extends View {
     int yD;
     // включатель звука
     boolean switchMusic = true;
+    // индикатор окончания игры
     boolean gameOver = false;
-
+    // размеры экрана
     int width;
     int height;
-
+    // текст берем из ресурсов
+    String finishGame = getResources().getString(R.string.finishGame);
+    String newGame = getResources().getString(R.string.newGame);
+    String mute = getResources().getString(R.string.mute);
+    // цвета геометрических фигур из ресурсов
+    int colorBackground = getResources().getColor(R.color.colorBackground);
+    int colorBigFrameOut = getResources().getColor(R.color.colorBigFrameOut);
+    int colorBigFrameIn = getResources().getColor(R.color.colorBigFrameIn);
+    int colorSmallSquare = getResources().getColor(R.color.colorSmallSquare);
+    int colorSmallSquareFrame = getResources().getColor(R.color.colorSmallSquareFrame);
+    int colorMute = getResources().getColor(R.color.colorMute);
+    // цвета текстов из ресурсов
+    int colorClickNewGame = getResources().getColor(R.color.colorClickNewGame);
+    int colorClickMute = getResources().getColor(R.color.colorClickMute);
+    int colorTextWin = getResources().getColor(R.color.colorTextWin);
+    int colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
 
    public MainGameGraphics(Context context) {
         super(context);
        SG.initSound("click.mp3");
        сompFunct.createMixedArray(arr);
+       SGFinish.initSound("baraban.ogg");
     }
-
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -57,7 +70,6 @@ public class MainGameGraphics extends View {
 
         width = canvas.getWidth();
         height = canvas.getHeight();
-
         x2 = width - X1;
         y2 = x2 - X1 + Y1;
         // рамка внутреннего большого квадрата
@@ -66,31 +78,23 @@ public class MainGameGraphics extends View {
         x4 = x2 - THICKNESS_BIG_FRAME;
         y4 = y2 - THICKNESS_BIG_FRAME;
 
-
         // стиль Заливка
         mPaint.setStyle(Paint.Style.FILL);
         // закрашиваем холст
-        mPaint.setColor(Color.GREEN);
-
+        mPaint.setColor(colorBackground);
         canvas.drawPaint(mPaint);
-
         // Рисуем внешний прямоугольник
-        mPaint.setColor(Color.BLUE);
+        mPaint.setColor(colorBigFrameOut);
         canvas.drawRect(X1, Y1, x2, y2, mPaint);
         // Рисуем внутренний прямоугольник
-        mPaint.setColor(Color.GREEN);
+        mPaint.setColor(colorBigFrameIn);
         canvas.drawRect(x3, y3, x4, y4, mPaint);
 
-/////// Инициализация массива
-     /*   if (countStart == 0) {
-            сompFunct.createMixedArray(arr);
-        }*/
- ///////////////////////////////////
-
+         // рисуем квадратики
         for (int i = 0; i < 4; i++)
             for (int j = 0; j < 4; j++) {
                 if (arr[i][j] != 0) {
-                    mPaint.setColor(Color.YELLOW);
+                    mPaint.setColor(colorSmallSquare);
                     xD = сompFunct.sizeOneSquareX(x4, x3, DIST_BETWEEN_SQUARES);
                     yD = сompFunct.sizeOneSquareY(y4, y3, DIST_BETWEEN_SQUARES);
                     xin1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, j);
@@ -98,7 +102,7 @@ public class MainGameGraphics extends View {
                     yin1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, i);
                     yin2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, i);
                     canvas.drawRect(xin1, yin1, xin2, yin2, mPaint);
-                    mPaint.setColor(Color.RED);
+                    mPaint.setColor(colorTextNumeral);
                     mPaint.setStyle(Paint.Style.FILL);
                     mPaint.setAntiAlias(true);
                     mPaint.setTextSize(yD * 2 / 3);
@@ -108,31 +112,31 @@ public class MainGameGraphics extends View {
         }
 
         if (сompFunct.checkWin(arr) == true) {
-// ПОБЕДА
+            // ПОБЕДА
             // стиль Заливка
             mPaint.setStyle(Paint.Style.FILL);
             // закрашиваем холст
-            mPaint.setColor(Color.GREEN);
+            mPaint.setColor(colorBackground);
             canvas.drawPaint(mPaint);
-
-            mPaint.setColor(Color.RED);
+            mPaint.setColor(colorTextWin);
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setAntiAlias(true);
             mPaint.setTextSize(yD * 2 / 3);
             mPaint.setTextAlign(Paint.Align.CENTER);
-            canvas.drawText("ПОБЕДА!", (x4 - x3)/2 + x3, (y4 - y3)/2 + y3, mPaint);
+            canvas.drawText(finishGame, (x4 - x3)/2 + x3, (y4 - y3)/2 + y3, mPaint);
+            SGFinish.playSound(switchMusic);
             gameOver = true;
-/// Новая игра
-            mPaint.setColor(Color.YELLOW);
+            // Новая игра
+            mPaint.setColor(colorBackground);
             canvas.drawRect(X1, y2 + 50, x2, y2 + 50 + yD, mPaint);
             mPaint.setTextSize(yD * 2 / 3);
             mPaint.setTextAlign(Paint.Align.CENTER);
-            mPaint.setColor(Color.RED);
-            canvas.drawText("НОВАЯ ИГРА", (x2 - X1)/2 + X1, y2 + 50 + yD*3/4, mPaint);
+            mPaint.setColor(colorClickNewGame);
+            canvas.drawText(newGame, (x2 - X1)/2 + X1, y2 + 50 + yD*3/4, mPaint);
         }
 
-            // индикаторы
-        mPaint.setColor(Color.BLUE);
+            // индикаторы // потом убрать
+     /*   mPaint.setColor(Color.BLUE);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(48);
@@ -140,24 +144,17 @@ public class MainGameGraphics extends View {
         canvas.drawText(String.valueOf(сompFunct.i0), 30, height - 32, mPaint);
         canvas.drawText(String.valueOf(сompFunct.j0), 30, height - 96, mPaint);
         canvas.drawText(String.valueOf(сompFunct.checkWin(arr)), 30, height - 150, mPaint);
-        /////////////////
-     //   countStart = +1;
-        ////////////////
+       */////////////////
 
         /// звук выкл/вкл
-
         mPaint.setColor(Color.YELLOW);
         canvas.drawRect(width - xD - 20, height - yD*1/2 -20, width - 20, height - 20, mPaint);
         mPaint.setTextSize(yD * 2 / 5);
         mPaint.setTextAlign(Paint.Align.CENTER);
-        mPaint.setColor(Color.RED);
-        canvas.drawText("ЗВУК", xD/2 + width - xD - 20, height - 20 - yD*1/8, mPaint);
-//////////
-
-
+        mPaint.setColor(colorClickMute);
+        canvas.drawText(mute, xD/2 + width - xD - 20, height - 20 - yD*1/8, mPaint);
 
     }
-
 
     public boolean onTouchEvent(MotionEvent event) {
         // координаты Touch-события
@@ -218,8 +215,7 @@ public class MainGameGraphics extends View {
                     сompFunct.i0 = сompFunct.i0+1;
                     invalidate();
                 }
-
-                //// кнопка "НОВАЯ ИГРА"
+                // кнопка "НОВАЯ ИГРА"
                if (evX >= X1 &&
                         evX <= x2 &&
                         evY >= y2 + 50 &&
@@ -230,8 +226,7 @@ public class MainGameGraphics extends View {
                    SG.playSound(switchMusic);
                    invalidate();
                }
-
-                //// кнопка "ЗВУК"
+                // кнопка "ЗВУК"
                 if (evX >= width - xD - 20 &&
                         evX <= width - 20 &&
                         evY >= height - yD*1/2 -20 &&
@@ -239,15 +234,9 @@ public class MainGameGraphics extends View {
                         ) {
                    switchMusic = !switchMusic;
 
-                  // SG.playSound(switchMusic);
-                    invalidate();
                 }
-
-
-
                 break;
         }
         return true;
     }
-
 }

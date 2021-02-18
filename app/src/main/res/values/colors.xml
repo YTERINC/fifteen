@@ -7,4 +7,20 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorBackground">#3C9504</color>
+    <color name="colorBigFrameOut">#041A93</color>
+    <color name="colorBigFrameIn">#3C9504</color>
+    <color name="colorSmallSquare">#FFCA28</color>
+    <color name="colorSmallSquareFrame">#F1B70B</color>
+    <color name="colorMute">#7A48FF3B</color>
+    <color name="colorFigureWin">#7A48FF3B</color>
+    <color name="colorFigureNewGame">#7A48FF3B</color>
+    <color name="colorFigureMute">#7A48FF3B</color>
+
+    <color name="colorClickNewGame">#FFFFFF</color>
+    <color name="colorClickMute">#BF0000</color>
+    <color name="colorTextWin">#FFFFFF</color>
+    <color name="colorTextNumeral">#F42222</color>
+
 </resources>
