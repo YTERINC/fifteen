@@ -13,9 +13,11 @@ public class MainGameGraphics extends View {
     public SoundGames SG = new SoundGames(getContext());
     public SoundGames SGFinish = new SoundGames(getContext());
 
+
+
     int[][] arr = new int[4][4];
     final int X1 = 50; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
-    final int Y1 = 200; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
+    final int Y1 = 350; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
     int y2; //координата Y внешнего квадрата, справа
     final int THICKNESS_BIG_FRAME = 10; // толщина рамки большого квадрата
@@ -51,6 +53,8 @@ public class MainGameGraphics extends View {
     int colorSmallSquare = getResources().getColor(R.color.colorSmallSquare);
     int colorSmallSquareFrame = getResources().getColor(R.color.colorSmallSquareFrame);
     int colorMute = getResources().getColor(R.color.colorMute);
+    int colorFigureNewGame = getResources().getColor(R.color.colorFigureNewGame);
+
     // цвета текстов из ресурсов
     int colorClickNewGame = getResources().getColor(R.color.colorClickNewGame);
     int colorClickMute = getResources().getColor(R.color.colorClickMute);
@@ -58,7 +62,7 @@ public class MainGameGraphics extends View {
     int colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
 
    public MainGameGraphics(Context context) {
-        super(context);
+       super(context);
        SG.initSound("click.mp3");
        сompFunct.createMixedArray(arr);
        SGFinish.initSound("baraban.ogg");
@@ -127,7 +131,7 @@ public class MainGameGraphics extends View {
             SGFinish.playSound(switchMusic);
             gameOver = true;
             // Новая игра
-            mPaint.setColor(colorBackground);
+            mPaint.setColor(colorFigureNewGame);
             canvas.drawRect(X1, y2 + 50, x2, y2 + 50 + yD, mPaint);
             mPaint.setTextSize(yD * 2 / 3);
             mPaint.setTextAlign(Paint.Align.CENTER);
@@ -233,7 +237,6 @@ public class MainGameGraphics extends View {
                         evY <= height - 20
                         ) {
                    switchMusic = !switchMusic;
-
                 }
                 break;
         }
