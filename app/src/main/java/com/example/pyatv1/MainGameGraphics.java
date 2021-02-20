@@ -13,10 +13,8 @@ public class MainGameGraphics extends View {
     public SoundGames SG = new SoundGames(getContext());
     public SoundGames SGFinish = new SoundGames(getContext());
 
-
-
     int[][] arr = new int[4][4];
-    final int X1 = 50; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
+    final int X1 = 10; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
     final int Y1 = 350; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
     int y2; //координата Y внешнего квадрата, справа
@@ -60,6 +58,16 @@ public class MainGameGraphics extends View {
     int colorClickMute = getResources().getColor(R.color.colorClickMute);
     int colorTextWin = getResources().getColor(R.color.colorTextWin);
     int colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
+
+    // координаты для кнопки звука
+    int muteRectX1;
+    int muteRectY1;
+    int muteRectX2;
+    int muteRectY2;
+    int muteTextX;
+    int muteTextY;
+
+
 
    public MainGameGraphics(Context context) {
        super(context);
@@ -151,12 +159,19 @@ public class MainGameGraphics extends View {
        */////////////////
 
         /// звук выкл/вкл
+        muteRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 3);
+        muteRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD/2;
+        muteRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
+        muteRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
+        muteTextX = muteRectX1 + (muteRectX2 - muteRectX1)/2;
+        muteTextY = muteRectY2 - (muteRectY2 - muteRectY1)/2 + yD/7;
         mPaint.setColor(Color.YELLOW);
-        canvas.drawRect(width - xD - 20, height - yD*1/2 -20, width - 20, height - 20, mPaint);
+        //canvas.drawRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, mPaint);
+        canvas.drawRoundRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, 35, 35, mPaint);
         mPaint.setTextSize(yD * 2 / 5);
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setColor(colorClickMute);
-        canvas.drawText(mute, xD/2 + width - xD - 20, height - 20 - yD*1/8, mPaint);
+        canvas.drawText(mute, muteTextX, muteTextY, mPaint);
 
     }
 
@@ -231,10 +246,10 @@ public class MainGameGraphics extends View {
                    invalidate();
                }
                 // кнопка "ЗВУК"
-                if (evX >= width - xD - 20 &&
-                        evX <= width - 20 &&
-                        evY >= height - yD*1/2 -20 &&
-                        evY <= height - 20
+                if (evX >= muteRectX1 &&
+                        evX <= muteRectX2 &&
+                        evY >= muteRectY1 &&
+                        evY <= muteRectY2
                         ) {
                    switchMusic = !switchMusic;
                 }
