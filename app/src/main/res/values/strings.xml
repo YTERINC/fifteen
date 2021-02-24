@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">pyatV1</string>
-    <string name="finishGame">ПОБЕДА!!!</string>
-    <string name="newGame">НОВАЯ ИГРА</string>
-    <string name="mute">ЗВУК</string>
+    <string name="textFinishGame">ПОБЕДА!!!</string>
+    <string name="textNewGame">НОВАЯ ИГРА</string>
+    <string name="textMute">ЗВУК</string>
+    <string name="textExitGame">ВЫХОД</string>
 </resources>

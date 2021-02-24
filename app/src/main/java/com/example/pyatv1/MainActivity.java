@@ -14,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         MainGameGraphics mainGameGraphics = new MainGameGraphics(this);
         setContentView(mainGameGraphics);
+
     }
 }

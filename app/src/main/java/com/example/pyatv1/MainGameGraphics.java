@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.core.app.ActivityCompat;
+
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();
     public ComputationalFunctions сompFunct = new ComputationalFunctions();
@@ -41,9 +43,10 @@ public class MainGameGraphics extends View {
     int width;
     int height;
     // текст берем из ресурсов
-    String finishGame = getResources().getString(R.string.finishGame);
-    String newGame = getResources().getString(R.string.newGame);
-    String mute = getResources().getString(R.string.mute);
+    String textFinishGame = getResources().getString(R.string.textFinishGame);
+    String textNewGame = getResources().getString(R.string.textNewGame);
+    String textMute = getResources().getString(R.string.textMute);
+    String textExitGame = getResources().getString(R.string.textExitGame);
     // цвета геометрических фигур из ресурсов
     int colorBackground = getResources().getColor(R.color.colorBackground);
     int colorBigFrameOut = getResources().getColor(R.color.colorBigFrameOut);
@@ -52,12 +55,19 @@ public class MainGameGraphics extends View {
     int colorSmallSquareFrame = getResources().getColor(R.color.colorSmallSquareFrame);
     int colorMute = getResources().getColor(R.color.colorMute);
     int colorFigureNewGame = getResources().getColor(R.color.colorFigureNewGame);
+    int colorFigureExitGame = getResources().getColor(R.color.colorFigureExitGame);
+
+    int colorBigFrameOutForWin = getResources().getColor(R.color.colorBigFrameOutForWin);
+    int colorBigFrameInForWin = getResources().getColor(R.color.colorBigFrameInForWin);
+    int colorSmallSquareForWin = getResources().getColor(R.color.colorSmallSquareForWin);
+    int colorSmallSquareFrameForWin = getResources().getColor(R.color.colorSmallSquareFrameForWin);
 
     // цвета текстов из ресурсов
     int colorClickNewGame = getResources().getColor(R.color.colorClickNewGame);
     int colorClickMute = getResources().getColor(R.color.colorClickMute);
     int colorTextWin = getResources().getColor(R.color.colorTextWin);
     int colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
+    int colorTextExitGame = getResources().getColor(R.color.colorTextExitGame);
 
     // координаты для кнопки звука
     int muteRectX1;
@@ -66,8 +76,20 @@ public class MainGameGraphics extends View {
     int muteRectY2;
     int muteTextX;
     int muteTextY;
-
-
+    // координаты для кнопки НОВАЯ ИГРА
+    int newGameRectX1;
+    int newGameRectY1;
+    int newGameRectX2;
+    int newGameRectY2;
+    int newGameTextX;
+    int newGameTextY;
+    // координаты для кнопки ВЫХОД
+    int exitGameRectX1;
+    int exitGameRectY1;
+    int exitGameRectX2;
+    int exitGameRectY2;
+    int exitGameTextX;
+    int exitGameTextY;
 
    public MainGameGraphics(Context context) {
        super(context);
@@ -117,13 +139,28 @@ public class MainGameGraphics extends View {
                     mPaint.setColor(colorTextNumeral);
                     mPaint.setStyle(Paint.Style.FILL);
                     mPaint.setAntiAlias(true);
-                    mPaint.setTextSize(yD * 2 / 3);
+                    mPaint.setTextSize(yD*2/3);
                     mPaint.setTextAlign(Paint.Align.CENTER);
                     canvas.drawText(String.valueOf(arr[i][j]), xin2 - (xin2 - xin1) / 2, yin2 - (yin2 - yin1) / 2 + yD / 4, mPaint);
                 }
         }
 
         if (сompFunct.checkWin(arr) == true) {
+
+            newGameRectX1 = X1;
+            newGameRectY1 = y2 + 50;
+            newGameRectX2 = x2;
+            newGameRectY2 = y2 + yD - 50;
+            newGameTextX = (x2 - X1)/2 + X1;
+            newGameTextY = y2 + yD*3/4;
+
+            exitGameRectX1 = X1;
+            exitGameRectY1 = Y1 - yD + 50;
+            exitGameRectX2 = x2;
+            exitGameRectY2 = Y1 - 50;
+            exitGameTextX = (x2 - X1)/2 + X1;
+            exitGameTextY = Y1 - yD*1/4;
+
             // ПОБЕДА
             // стиль Заливка
             mPaint.setStyle(Paint.Style.FILL);
@@ -135,16 +172,22 @@ public class MainGameGraphics extends View {
             mPaint.setAntiAlias(true);
             mPaint.setTextSize(yD * 2 / 3);
             mPaint.setTextAlign(Paint.Align.CENTER);
-            canvas.drawText(finishGame, (x4 - x3)/2 + x3, (y4 - y3)/2 + y3, mPaint);
+            canvas.drawText(textFinishGame, (x4 - x3)/2 + x3, (y4 - y3)/2 + y3, mPaint);
             SGFinish.playSound(switchMusic);
             gameOver = true;
             // Новая игра
             mPaint.setColor(colorFigureNewGame);
-            canvas.drawRect(X1, y2 + 50, x2, y2 + 50 + yD, mPaint);
+            canvas.drawRect(newGameRectX1, newGameRectY1, newGameRectX2, newGameRectY2, mPaint);
             mPaint.setTextSize(yD * 2 / 3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorClickNewGame);
-            canvas.drawText(newGame, (x2 - X1)/2 + X1, y2 + 50 + yD*3/4, mPaint);
+            canvas.drawText(textNewGame, newGameTextX, newGameTextY, mPaint);
+            // Выход из игры
+            mPaint.setColor(colorFigureExitGame);
+            canvas.drawRect(exitGameRectX1, exitGameRectY1, exitGameRectX2 , exitGameRectY2, mPaint);
+            mPaint.setColor(colorTextExitGame);
+            canvas.drawText(textExitGame, exitGameTextX, exitGameTextY, mPaint);
+
         }
 
             // индикаторы // потом убрать
@@ -153,26 +196,29 @@ public class MainGameGraphics extends View {
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(48);
         mPaint.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText(String.valueOf(сompFunct.i0), 30, height - 32, mPaint);
-        canvas.drawText(String.valueOf(сompFunct.j0), 30, height - 96, mPaint);
-        canvas.drawText(String.valueOf(сompFunct.checkWin(arr)), 30, height - 150, mPaint);
-       */////////////////
+       // canvas.drawText(String.valueOf(сompFunct.i0), 30, height - 32, mPaint);
+        //canvas.drawText(String.valueOf(сompFunct.j0), 30, height - 96, mPaint);
+        //canvas.drawText(String.valueOf(сompFunct.checkWin(arr)), 30, height - 150, mPaint);
+      //  canvas.drawText(String.valueOf(widthTextMute), 30, height - 150, mPaint);
+       // canvas.drawText(String.valueOf(mPaint.measureText(MUTE")), 30, height - 96, mPaint);
+       ////////////////*/
 
         /// звук выкл/вкл
-        muteRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 3);
-        muteRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD/2;
-        muteRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
-        muteRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
-        muteTextX = muteRectX1 + (muteRectX2 - muteRectX1)/2;
-        muteTextY = muteRectY2 - (muteRectY2 - muteRectY1)/2 + yD/7;
-        mPaint.setColor(Color.YELLOW);
-        //canvas.drawRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, mPaint);
-        canvas.drawRoundRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, 35, 35, mPaint);
-        mPaint.setTextSize(yD * 2 / 5);
-        mPaint.setTextAlign(Paint.Align.CENTER);
-        mPaint.setColor(colorClickMute);
-        canvas.drawText(mute, muteTextX, muteTextY, mPaint);
+        if (gameOver == false) { // отображать только вовремя игры
+            muteRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 3);
+            muteRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD / 2;
+            muteRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
+            muteRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
+            muteTextX = muteRectX1 + (muteRectX2 - muteRectX1) / 2;
+            muteTextY = muteRectY2 - (muteRectY2 - muteRectY1) / 2 + yD / 8;
+            mPaint.setColor(Color.YELLOW);
+            canvas.drawRoundRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, 35, 35, mPaint);
+            mPaint.setTextSize(yD * 1 / 3); // надо придумать множитель для разной длины текста
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mPaint.setColor(colorClickMute);
+            canvas.drawText(textMute, muteTextX, muteTextY, mPaint);
 
+        }
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -235,10 +281,10 @@ public class MainGameGraphics extends View {
                     invalidate();
                 }
                 // кнопка "НОВАЯ ИГРА"
-               if (evX >= X1 &&
-                        evX <= x2 &&
-                        evY >= y2 + 50 &&
-                        evY <= y2 + 50 + yD &&
+               if (evX >= newGameRectX1 &&
+                        evX <= newGameRectX2 &&
+                        evY >= newGameRectY1 &&
+                        evY <= newGameRectY2 &&
                         gameOver == true) {
                    gameOver = false;
                    сompFunct.createMixedArray(arr);
@@ -249,12 +295,26 @@ public class MainGameGraphics extends View {
                 if (evX >= muteRectX1 &&
                         evX <= muteRectX2 &&
                         evY >= muteRectY1 &&
-                        evY <= muteRectY2
-                        ) {
+                        evY <= muteRectY2 &&
+                    gameOver == false) {
                    switchMusic = !switchMusic;
                 }
+                // кнопка "ВЫХОД"
+                if (evX >= exitGameRectX1 &&
+                        evX <= exitGameRectX2 &&
+                        evY >= exitGameRectY1 &&
+                        evY <= exitGameRectY2 &&
+                        gameOver == true) {
+
+                    System.exit(0);
+                }
+
                 break;
         }
         return true;
     }
+
+
+
+
 }
