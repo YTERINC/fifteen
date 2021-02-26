@@ -19,9 +19,9 @@
     <color name="colorFigureExitGame">#FFFB00</color>
     <color name="colorFigureMute">#7A48FF3B</color>
 
-    <color name="colorBigFrameOutForWin">#BDC2DD</color>
-    <color name="colorBigFrameInForWin">#B6DC9F</color>
-    <color name="colorSmallSquareForWin">#EDDEB0</color>
+    <color name="colorBigFrameOutForWin">#6A7DE4</color>
+    <color name="colorBigFrameInForWin">#AFF386</color>
+    <color name="colorSmallSquareForWin">#F8E3A1</color>
     <color name="colorSmallSquareFrameForWin">#F1B70B</color>
 
     <color name="colorClickNewGame">#FFFFFF</color>
@@ -29,5 +29,7 @@
     <color name="colorTextWin">#FFFFFF</color>
     <color name="colorTextExitGame">#FFFFFF</color>
     <color name="colorTextNumeral">#F42222</color>
+
+    <color name="colorTextNumeralForWin">#E48D8D</color>
 
 </resources>

@@ -68,6 +68,7 @@ public class MainGameGraphics extends View {
     int colorTextWin = getResources().getColor(R.color.colorTextWin);
     int colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
     int colorTextExitGame = getResources().getColor(R.color.colorTextExitGame);
+    int colorTextNumeralForWin = getResources().getColor(R.color.colorTextNumeralForWin);
 
     // координаты для кнопки звука
     int muteRectX1;
@@ -117,10 +118,10 @@ public class MainGameGraphics extends View {
         // закрашиваем холст
         mPaint.setColor(colorBackground);
         canvas.drawPaint(mPaint);
-        // Рисуем внешний прямоугольник
+        // Рисуем большой прямоугольник
         mPaint.setColor(colorBigFrameOut);
         canvas.drawRect(X1, Y1, x2, y2, mPaint);
-        // Рисуем внутренний прямоугольник
+        // Рисуем внутренний прямоугольник в большом, для создания рамки
         mPaint.setColor(colorBigFrameIn);
         canvas.drawRect(x3, y3, x4, y4, mPaint);
 
@@ -145,7 +146,42 @@ public class MainGameGraphics extends View {
                 }
         }
 
-        if (сompFunct.checkWin(arr) == true) {
+        /// звук выкл/вкл
+        if (gameOver == false) { // отображать только вовремя игры
+            muteRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 3);
+            muteRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD / 2;
+            muteRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
+            muteRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
+            muteTextX = muteRectX1 + (muteRectX2 - muteRectX1) / 2;
+            muteTextY = muteRectY2 - (muteRectY2 - muteRectY1) / 2 + yD / 8;
+            mPaint.setColor(Color.YELLOW);
+            canvas.drawRoundRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, 35, 35, mPaint);
+            mPaint.setTextSize(yD * 1 / 3); // надо придумать множитель для разной длины текста
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mPaint.setColor(colorClickMute);
+            canvas.drawText(textMute, muteTextX, muteTextY, mPaint);
+        }
+
+        if (сompFunct.checkWin(arr) == true && gameOver == false) {
+
+            SGFinish.playSound(switchMusic);
+
+
+            // ПОБЕДА
+            // стиль Заливка
+            mPaint.setStyle(Paint.Style.FILL);
+            // закрашиваем холст
+            //mPaint.setColor(colorBackground);
+           // меняем цвет внутреннего большого квадрата на победный, при нажатии кнопки НОВАЯ ИГРА возвращаем цвета назад
+           colorBigFrameIn = colorBigFrameInForWin;
+           colorBigFrameOut = colorBigFrameOutForWin;
+           colorSmallSquare = colorSmallSquareForWin;
+           colorTextNumeral = colorTextNumeralForWin;
+           gameOver = true;
+           invalidate();
+        }
+
+        if (gameOver == true) {
 
             newGameRectX1 = X1;
             newGameRectY1 = y2 + 50;
@@ -161,20 +197,14 @@ public class MainGameGraphics extends View {
             exitGameTextX = (x2 - X1)/2 + X1;
             exitGameTextY = Y1 - yD*1/4;
 
-            // ПОБЕДА
-            // стиль Заливка
-            mPaint.setStyle(Paint.Style.FILL);
-            // закрашиваем холст
-            mPaint.setColor(colorBackground);
-            canvas.drawPaint(mPaint);
+            ///////////////////
+            //canvas.drawPaint(mPaint);
             mPaint.setColor(colorTextWin);
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setAntiAlias(true);
             mPaint.setTextSize(yD * 2 / 3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             canvas.drawText(textFinishGame, (x4 - x3)/2 + x3, (y4 - y3)/2 + y3, mPaint);
-            SGFinish.playSound(switchMusic);
-            gameOver = true;
             // Новая игра
             mPaint.setColor(colorFigureNewGame);
             canvas.drawRect(newGameRectX1, newGameRectY1, newGameRectX2, newGameRectY2, mPaint);
@@ -187,6 +217,7 @@ public class MainGameGraphics extends View {
             canvas.drawRect(exitGameRectX1, exitGameRectY1, exitGameRectX2 , exitGameRectY2, mPaint);
             mPaint.setColor(colorTextExitGame);
             canvas.drawText(textExitGame, exitGameTextX, exitGameTextY, mPaint);
+            invalidate(); // перерисовываем
 
         }
 
@@ -202,23 +233,6 @@ public class MainGameGraphics extends View {
       //  canvas.drawText(String.valueOf(widthTextMute), 30, height - 150, mPaint);
        // canvas.drawText(String.valueOf(mPaint.measureText(MUTE")), 30, height - 96, mPaint);
        ////////////////*/
-
-        /// звук выкл/вкл
-        if (gameOver == false) { // отображать только вовремя игры
-            muteRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 3);
-            muteRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD / 2;
-            muteRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
-            muteRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
-            muteTextX = muteRectX1 + (muteRectX2 - muteRectX1) / 2;
-            muteTextY = muteRectY2 - (muteRectY2 - muteRectY1) / 2 + yD / 8;
-            mPaint.setColor(Color.YELLOW);
-            canvas.drawRoundRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, 35, 35, mPaint);
-            mPaint.setTextSize(yD * 1 / 3); // надо придумать множитель для разной длины текста
-            mPaint.setTextAlign(Paint.Align.CENTER);
-            mPaint.setColor(colorClickMute);
-            canvas.drawText(textMute, muteTextX, muteTextY, mPaint);
-
-        }
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -280,25 +294,32 @@ public class MainGameGraphics extends View {
                     сompFunct.i0 = сompFunct.i0+1;
                     invalidate();
                 }
+                // кнопка "ЗВУК"
+                if (evX >= muteRectX1 &&
+                        evX <= muteRectX2 &&
+                        evY >= muteRectY1 &&
+                        evY <= muteRectY2 &&
+                        gameOver == false) {
+                    switchMusic = !switchMusic;
+                }
                 // кнопка "НОВАЯ ИГРА"
                if (evX >= newGameRectX1 &&
                         evX <= newGameRectX2 &&
                         evY >= newGameRectY1 &&
                         evY <= newGameRectY2 &&
                         gameOver == true) {
-                   gameOver = false;
                    сompFunct.createMixedArray(arr);
                    SG.playSound(switchMusic);
+                   // убираем победные цвета внутреннего большого квадрата, возвращаем обычные из ресурсов
+                   colorBigFrameIn = getResources().getColor(R.color.colorBigFrameIn);
+                   colorBigFrameOut = getResources().getColor(R.color.colorBigFrameOut);
+                   colorSmallSquare = getResources().getColor(R.color.colorSmallSquare);
+                   colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
+                   gameOver = false;
                    invalidate();
-               }
-                // кнопка "ЗВУК"
-                if (evX >= muteRectX1 &&
-                        evX <= muteRectX2 &&
-                        evY >= muteRectY1 &&
-                        evY <= muteRectY2 &&
-                    gameOver == false) {
-                   switchMusic = !switchMusic;
-                }
+                   }
+
+
                 // кнопка "ВЫХОД"
                 if (evX >= exitGameRectX1 &&
                         evX <= exitGameRectX2 &&
@@ -308,7 +329,6 @@ public class MainGameGraphics extends View {
 
                     System.exit(0);
                 }
-
                 break;
         }
         return true;
