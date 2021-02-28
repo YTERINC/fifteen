@@ -39,6 +39,8 @@ public class MainGameGraphics extends View {
     boolean switchMusic = true;
     // индикатор окончания игры
     boolean gameOver = false;
+    // индикатор активации меню
+    boolean switchMenu = false;
     // размеры экрана
     int width;
     int height;
@@ -47,15 +49,21 @@ public class MainGameGraphics extends View {
     String textNewGame = getResources().getString(R.string.textNewGame);
     String textMute = getResources().getString(R.string.textMute);
     String textExitGame = getResources().getString(R.string.textExitGame);
+    String textMenu = getResources().getString(R.string.textMenu);
     // цвета геометрических фигур из ресурсов
     int colorBackground = getResources().getColor(R.color.colorBackground);
     int colorBigFrameOut = getResources().getColor(R.color.colorBigFrameOut);
     int colorBigFrameIn = getResources().getColor(R.color.colorBigFrameIn);
     int colorSmallSquare = getResources().getColor(R.color.colorSmallSquare);
     int colorSmallSquareFrame = getResources().getColor(R.color.colorSmallSquareFrame);
-    int colorMute = getResources().getColor(R.color.colorMute);
+    int colorTextMuteOn = getResources().getColor(R.color.colorTextMuteOn);
+    int colorTextMuteOff = getResources().getColor(R.color.colorTextMuteOff);
     int colorFigureNewGame = getResources().getColor(R.color.colorFigureNewGame);
     int colorFigureExitGame = getResources().getColor(R.color.colorFigureExitGame);
+    int colorFigureMuteOn = getResources().getColor(R.color.colorFigureMuteOn);
+    int colorFigureMuteOff = getResources().getColor(R.color.colorFigureMuteOff);
+    int colorFigureMenuOn = getResources().getColor(R.color.colorFigureMenuOn);
+    int colorTextMenuOn = getResources().getColor(R.color.colorTextMenuOn);
 
     int colorBigFrameOutForWin = getResources().getColor(R.color.colorBigFrameOutForWin);
     int colorBigFrameInForWin = getResources().getColor(R.color.colorBigFrameInForWin);
@@ -91,6 +99,13 @@ public class MainGameGraphics extends View {
     int exitGameRectY2;
     int exitGameTextX;
     int exitGameTextY;
+    // координаты для кнопки МЕНЮ
+    int menuRectX1;
+    int menuRectY1;
+    int menuRectX2;
+    int menuRectY2;
+    int menuTextX;
+    int menuTextY;
 
    public MainGameGraphics(Context context) {
        super(context);
@@ -136,7 +151,7 @@ public class MainGameGraphics extends View {
                     xin2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, j);
                     yin1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, i);
                     yin2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, i);
-                    canvas.drawRect(xin1, yin1, xin2, yin2, mPaint);
+                    canvas.drawRoundRect(xin1, yin1, xin2, yin2, 20,20, mPaint);
                     mPaint.setColor(colorTextNumeral);
                     mPaint.setStyle(Paint.Style.FILL);
                     mPaint.setAntiAlias(true);
@@ -146,7 +161,40 @@ public class MainGameGraphics extends View {
                 }
         }
 
-        /// звук выкл/вкл
+        // кнопка МЕНЮ
+        if (gameOver == false) { // отображать только вовремя игры
+            menuRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
+            menuRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD / 2;
+            menuRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 0)*2;
+            menuRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
+            menuTextX = menuRectX1 + (menuRectX2 - menuRectX1) / 2;
+            menuTextY = menuRectY2 - (menuRectY2 - menuRectY1) / 2 + yD / 8;
+            mPaint.setColor(colorFigureMenuOn);
+            canvas.drawRoundRect(menuRectX1, menuRectY1, menuRectX2, menuRectY2, 35, 35, mPaint);
+            mPaint.setTextSize(yD * 1 / 3);
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mPaint.setColor(colorTextMenuOn);
+            canvas.drawText(textMenu, menuTextX, menuTextY, mPaint);
+        }
+
+        // МЕНЮ
+        if (gameOver == false && switchMenu == true) { // отображать только вовремя игры
+            menuRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
+            menuRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD / 2;
+            menuRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 0)*2;
+            menuRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
+            menuTextX = menuRectX1 + (menuRectX2 - menuRectX1) / 2;
+            menuTextY = menuRectY2 - (menuRectY2 - menuRectY1) / 2 + yD / 8;
+            mPaint.setColor(colorFigureMenuOn);
+            canvas.drawRoundRect(menuRectX1, menuRectY1, menuRectX2, menuRectY2, 35, 35, mPaint);
+            mPaint.setTextSize(yD * 1 / 3);
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mPaint.setColor(colorTextMenuOn);
+            canvas.drawText(textMenu, menuTextX, menuTextY, mPaint);
+        }
+
+
+        // звук выкл/вкл
         if (gameOver == false) { // отображать только вовремя игры
             muteRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 3);
             muteRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD + yD / 2;
@@ -154,19 +202,17 @@ public class MainGameGraphics extends View {
             muteRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) + yD;
             muteTextX = muteRectX1 + (muteRectX2 - muteRectX1) / 2;
             muteTextY = muteRectY2 - (muteRectY2 - muteRectY1) / 2 + yD / 8;
-            mPaint.setColor(Color.YELLOW);
+            mPaint.setColor(colorFigureMuteOn);
             canvas.drawRoundRect(muteRectX1, muteRectY1, muteRectX2, muteRectY2, 35, 35, mPaint);
             mPaint.setTextSize(yD * 1 / 3); // надо придумать множитель для разной длины текста
             mPaint.setTextAlign(Paint.Align.CENTER);
-            mPaint.setColor(colorClickMute);
+            mPaint.setColor(colorTextMuteOn);
             canvas.drawText(textMute, muteTextX, muteTextY, mPaint);
         }
 
         if (сompFunct.checkWin(arr) == true && gameOver == false) {
 
             SGFinish.playSound(switchMusic);
-
-
             // ПОБЕДА
             // стиль Заливка
             mPaint.setStyle(Paint.Style.FILL);
@@ -294,6 +340,20 @@ public class MainGameGraphics extends View {
                     сompFunct.i0 = сompFunct.i0+1;
                     invalidate();
                 }
+
+                // кнопка "МЕНЮ"
+                if (evX >= menuRectX1 &&
+                        evX <= menuRectX2 &&
+                        evY >= menuRectY1 &&
+                        evY <= menuRectY2 &&
+                        gameOver == false) {
+
+                    SG.playSound(switchMusic);
+                    switchMenu = true;
+
+                    invalidate();
+                }
+
                 // кнопка "ЗВУК"
                 if (evX >= muteRectX1 &&
                         evX <= muteRectX2 &&
@@ -301,6 +361,15 @@ public class MainGameGraphics extends View {
                         evY <= muteRectY2 &&
                         gameOver == false) {
                     switchMusic = !switchMusic;
+
+                    if (switchMusic == false) {
+                        colorFigureMuteOn = getResources().getColor(R.color.colorFigureMuteOff);
+                    }
+                    if (switchMusic == true) {
+                        colorFigureMuteOn = getResources().getColor(R.color.colorFigureMuteOn);
+                    }
+
+                    invalidate();
                 }
                 // кнопка "НОВАЯ ИГРА"
                if (evX >= newGameRectX1 &&

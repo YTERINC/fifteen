@@ -13,14 +13,20 @@
     <color name="colorBigFrameIn">#3C9504</color>
     <color name="colorSmallSquare">#FFCA28</color>
     <color name="colorSmallSquareFrame">#F1B70B</color>
-    <color name="colorMute">#7A48FF3B</color>
+    <color name="colorTextMuteOn">#7A1F201F</color>
+    <color name="colorTextMuteOff">#424140</color>
+    <color name="colorFigureMuteOn">#7A48FF3B</color>
+    <color name="colorFigureMuteOff">#FAAB92</color>
+    <color name="colorFigureMenuOn">#FAAB92</color>
+    <color name="colorTextMenuOn">#0E0D0D</color>
+
     <color name="colorFigureWin">#7A48FF3B</color>
     <color name="colorFigureNewGame">#FFFB00</color>
     <color name="colorFigureExitGame">#FFFB00</color>
     <color name="colorFigureMute">#7A48FF3B</color>
 
     <color name="colorBigFrameOutForWin">#6A7DE4</color>
-    <color name="colorBigFrameInForWin">#AFF386</color>
+    <color name="colorBigFrameInForWin">#D6EACA</color>
     <color name="colorSmallSquareForWin">#F8E3A1</color>
     <color name="colorSmallSquareFrameForWin">#F1B70B</color>
 
