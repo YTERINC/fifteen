@@ -4,5 +4,8 @@
     <string name="textNewGame">НОВАЯ ИГРА</string>
     <string name="textMute">ЗВУК</string>
     <string name="textExitGame">ВЫХОД</string>
-    <string name="textMenu">МЕНЮ</string>
+    <string name="textMenu">МЕНЮ...</string>
+    <string name="textMenuBackToGame">НАЗАД В ИГРУ</string>
+    <string name="textMenuDemoGame">ПРАВИЛЬНАЯ КОМБИНАЦИЯ</string>
+
 </resources>

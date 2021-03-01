@@ -19,6 +19,8 @@
     <color name="colorFigureMuteOff">#FAAB92</color>
     <color name="colorFigureMenuOn">#FAAB92</color>
     <color name="colorTextMenuOn">#0E0D0D</color>
+    <color name="colorFigureMenuBackToGame">#0E0D0D</color>
+    <color name="colorTextMenuBackToGame">#0E0D0D</color>
 
     <color name="colorFigureWin">#7A48FF3B</color>
     <color name="colorFigureNewGame">#FFFB00</color>
