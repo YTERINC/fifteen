@@ -6,6 +6,6 @@
     <string name="textExitGame">ВЫХОД</string>
     <string name="textMenu">МЕНЮ...</string>
     <string name="textMenuBackToGame">НАЗАД В ИГРУ</string>
-    <string name="textMenuDemoGame">ПРАВИЛЬНАЯ КОМБИНАЦИЯ</string>
+    <string name="textMenuDemoGame">ДЕМОНСТРАЦИЯ</string>
 
 </resources>

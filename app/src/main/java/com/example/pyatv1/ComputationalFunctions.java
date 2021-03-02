@@ -8,6 +8,22 @@ public class ComputationalFunctions {
     int i0;
     int j0;
 
+    public void createRightArray(int[][] arr) {
+        int count = 1; // для заполнения массива по порядку с 1 до 15
+        int tempArr;  // для временного хранения значения с нулем
+        int rand;
+        Random rnd = new Random();
+        // заполняем массив по порядку
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++) {
+                arr[i][j] = +count;
+                ++count;
+            }
+        arr[3][3] = 0; // последней клетке присваиваем ноль, т.е. это будет пустая клетка
+        i0 = 3;
+        j0 = 3;
+    }
+
     public void createMixedArray(int[][] arr) {
         int count = 1; // для заполнения массива по порядку с 1 до 15
         int tempArr;  // для временного хранения значения с нулем
