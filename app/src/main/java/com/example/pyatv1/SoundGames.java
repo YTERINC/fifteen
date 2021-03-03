@@ -46,8 +46,8 @@ public class SoundGames {
 
 
 
-    public int playSound(boolean switchMusic) {
-        if (mCatSound > 0 && switchMusic == true) {
+    public int playSound(boolean MusicOn) {
+        if (mCatSound > 0 && MusicOn == true) {
             mStreamID = mSoundPool.play(mCatSound, 1, 1, 1, 0, 1);
         }
         return mStreamID;
