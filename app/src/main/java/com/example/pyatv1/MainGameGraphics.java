@@ -2,7 +2,6 @@ package com.example.pyatv1;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +15,8 @@ public class MainGameGraphics extends View {
     public SoundGames SGFinish = new SoundGames(getContext());
 
     int[][] arr = new int[4][4];
+    int[][] arrDemo = new int[4][4];
+    int[][] arrTemp = new int[4][4];
     final int X1 = 10; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
     final int Y1 = 350; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
@@ -282,6 +283,7 @@ public class MainGameGraphics extends View {
         }
         // ПОБЕДА
         if (сompFunct.checkWin(arr) == true && gameOver == false && switchDemo == false) {
+     //   if (сompFunct.checkWin(arr) == true && switchDemo == false) {
            SGFinish.playSound(MusicOn);
            // меняем цвет внутреннего большого квадрата на победный, при нажатии кнопки НОВАЯ ИГРА возвращаем цвета назад
            colorBigSquareIn = colorBigSquareInForWin;
@@ -290,9 +292,7 @@ public class MainGameGraphics extends View {
            colorTextNumeral = colorTextNumeralForWin;
            gameOver = true;
          }
-
         if (gameOver == true && switchDemo == false) {
-
             newGameRectX1 = X1;
             newGameRectY1 = y2 + 50;
             newGameRectX2 = x2;
@@ -481,6 +481,7 @@ public class MainGameGraphics extends View {
                         evY <=menuBackToGameRectY2 &&
                         gameOver == false &&
                         switchMenu == true) {
+                    сompFunct.copyArray(arr, arrTemp);
                     switchMenu = false;
                     switchDemo = false;
                     SG.playSound(MusicOn);
@@ -495,10 +496,11 @@ public class MainGameGraphics extends View {
                         switchMenu == true) {
                     switchDemo = true;
                     switchMenu = false;
-                    сompFunct.createRightArray(arr);
+                    сompFunct.createRightArray(arrDemo);
+                    сompFunct.copyArray(arrTemp, arr);
+                    сompFunct.copyArray(arr, arrDemo);
                     SG.playSound(MusicOn);
                     invalidate();
-
                 }
                 break;
         }
