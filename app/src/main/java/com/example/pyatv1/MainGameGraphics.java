@@ -6,8 +6,6 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.core.app.ActivityCompat;
-
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();
     public ComputationalFunctions сompFunct = new ComputationalFunctions();
@@ -80,8 +78,10 @@ public class MainGameGraphics extends View {
     int colorTextMenuBackToGame = getResources().getColor(R.color.colorTextMenuBackToGame);
     int colorFigureMenuDemo = getResources().getColor(R.color.colorFigureMenuDemo);
     int colorTextMenuDemo = getResources().getColor(R.color.colorTextMenuDemo);
+    int colorFigureMenuLabel = getResources().getColor(R.color.colorFigureMenuLabel);
+    int colorTextMenuLabel = getResources().getColor(R.color.colorTextMenuLabel);
 
-    int colorBigSquareOutForWin = getResources().getColor(R.color.colorBigSquareOutForWin);
+        int colorBigSquareOutForWin = getResources().getColor(R.color.colorBigSquareOutForWin);
     int colorBigSquareInForWin = getResources().getColor(R.color.colorBigSquareInForWin);
     int colorSmallSquareInForWin = getResources().getColor(R.color.colorSmallSquareInForWin);
     int colorSmallSquareOutForWin = getResources().getColor(R.color.colorSmallSquareOutForWin);
@@ -116,6 +116,12 @@ public class MainGameGraphics extends View {
     int menuTextX;
     int menuTextY;
     // координаты пунктов МЕНЮ
+    int menuLabelRectX1;
+    int menuLabelRectY1;
+    int menuLabelRectX2;
+    int menuLabelRectY2;
+    int menuLabelTextX;
+    int menuLabelTextY;
     int menuNewGameRectX1;
     int menuNewGameRectY1;
     int menuNewGameRectX2;
@@ -146,6 +152,7 @@ public class MainGameGraphics extends View {
        super(context);
        SG.initSound("click.mp3");
        сompFunct.createMixedArray(arr);
+       сompFunct.createDemoArray(arrDemo);
        SGFinish.initSound("baraban.ogg");
     }
 
@@ -176,9 +183,11 @@ public class MainGameGraphics extends View {
             mPaint.setColor(colorBigSquareIn);
             canvas.drawRect(x3, y3, x4, y4, mPaint);
             // рисуем квадратики
+            if (switchDemo == true) сompFunct.copyArray(arrTemp, arrDemo);
+            else сompFunct.copyArray(arrTemp, arr);
             for (int i = 0; i < 4; i++)
                 for (int j = 0; j < 4; j++) {
-                    if (arr[i][j] != 0) {
+                    if (arrTemp[i][j] != 0) {
                         mPaint.setColor(colorSmallSquareIn);
                         xD = сompFunct.sizeOneSquareX(x4, x3, DIST_BETWEEN_SQUARES);
                         yD = сompFunct.sizeOneSquareY(y4, y3, DIST_BETWEEN_SQUARES);
@@ -190,7 +199,7 @@ public class MainGameGraphics extends View {
                         mPaint.setColor(colorTextNumeral);
                         mPaint.setTextSize(yD * 2 / 3);
                         mPaint.setTextAlign(Paint.Align.CENTER);
-                        canvas.drawText(String.valueOf(arr[i][j]), xin2 - (xin2 - xin1) / 2, yin2 - (yin2 - yin1) / 2 + yD / 4, mPaint);
+                        canvas.drawText(String.valueOf(arrTemp[i][j]), xin2 - (xin2 - xin1) / 2, yin2 - (yin2 - yin1) / 2 + yD / 4, mPaint);
                     }
                 }
         }
@@ -213,10 +222,24 @@ public class MainGameGraphics extends View {
 
         // МЕНЮ
         if (gameOver == false && switchMenu == true) {
+
+            menuLabelRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
+            menuLabelRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD*2/3;
+            menuLabelRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
+            menuLabelRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
+            menuLabelTextX =  menuLabelRectX1 + (menuLabelRectX2 -  menuLabelRectX1) / 2;
+            menuLabelTextY = menuLabelRectY2 - (menuLabelRectY2 - menuLabelRectY1) / 2 + yD / 8;
+            mPaint.setColor(colorFigureMenuLabel);
+            canvas.drawRoundRect(menuLabelRectX1, menuLabelRectY1, menuLabelRectX2, menuLabelRectY2, 35, 35, mPaint);
+            mPaint.setTextSize(yD * 1 / 3);
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mPaint.setColor(colorTextMenuLabel);
+            canvas.drawText(textMenu, menuLabelTextX, menuLabelTextY, mPaint);
+
             menuNewGameRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
-            menuNewGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 0);
+            menuNewGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 2);
             menuNewGameRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
-            menuNewGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD/2;
+            menuNewGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 2) - yD/2;
             menuNewGameTextX =  menuNewGameRectX1 + (menuNewGameRectX2 -  menuNewGameRectX1) / 2;
             menuNewGameTextY = menuNewGameRectY2 - (menuNewGameRectY2 - menuNewGameRectY1) / 2 + yD / 8;
             mPaint.setColor(colorFigureNewGame);
@@ -227,9 +250,9 @@ public class MainGameGraphics extends View {
             canvas.drawText(textNewGame, menuNewGameTextX, menuNewGameTextY, mPaint);
 
             menuExitGameRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
-            menuExitGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 1);
+            menuExitGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 4);
             menuExitGameRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
-            menuExitGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 1) - yD/2;
+            menuExitGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 4) - yD/2;
             menuExitGameTextX =  menuExitGameRectX1 + (menuExitGameRectX2 -  menuExitGameRectX1) / 2;
             menuExitGameTextY = menuExitGameRectY2 - (menuExitGameRectY2 - menuExitGameRectY1) / 2 + yD / 8;
             mPaint.setColor(colorFigureExitGame);
@@ -240,9 +263,9 @@ public class MainGameGraphics extends View {
             canvas.drawText(textExitGame, menuExitGameTextX, menuExitGameTextY, mPaint);
 
             menuDemoGameRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
-            menuDemoGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 2);
+            menuDemoGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3);
             menuDemoGameRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
-            menuDemoGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 2) - yD/2;
+            menuDemoGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) - yD/2;
             menuDemoGameTextX =  menuDemoGameRectX1 + (menuDemoGameRectX2 -  menuDemoGameRectX1) / 2;
             menuDemoGameTextY = menuDemoGameRectY2 - (menuDemoGameRectY2 - menuDemoGameRectY1) / 2 + yD / 8;
             mPaint.setColor(colorFigureMenuDemo);
@@ -253,9 +276,9 @@ public class MainGameGraphics extends View {
             canvas.drawText(textMenuDemoGame, menuDemoGameTextX, menuDemoGameTextY, mPaint);
 
             menuBackToGameRectX1 = сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
-            menuBackToGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 3);
+            menuBackToGameRectY1 = сompFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 1);
             menuBackToGameRectX2 = сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
-            menuBackToGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 3) - yD/2;
+            menuBackToGameRectY2 = сompFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 1) - yD/2;
             menuBackToGameTextX =  menuBackToGameRectX1 + (menuBackToGameRectX2 -  menuBackToGameRectX1) / 2;
             menuBackToGameTextY = menuBackToGameRectY2 - (menuBackToGameRectY2 - menuBackToGameRectY1) / 2 + yD / 8;
             mPaint.setColor(colorFigureMenuBackToGame);
@@ -481,7 +504,6 @@ public class MainGameGraphics extends View {
                         evY <=menuBackToGameRectY2 &&
                         gameOver == false &&
                         switchMenu == true) {
-                    сompFunct.copyArray(arr, arrTemp);
                     switchMenu = false;
                     switchDemo = false;
                     SG.playSound(MusicOn);
@@ -496,9 +518,6 @@ public class MainGameGraphics extends View {
                         switchMenu == true) {
                     switchDemo = true;
                     switchMenu = false;
-                    сompFunct.createRightArray(arrDemo);
-                    сompFunct.copyArray(arrTemp, arr);
-                    сompFunct.copyArray(arr, arrDemo);
                     SG.playSound(MusicOn);
                     invalidate();
                 }

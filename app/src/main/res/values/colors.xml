@@ -20,18 +20,20 @@
     <color name="colorTextMuteOn">#7A1F201F</color>
     <color name="colorTextMuteOff">#424140</color>
 
-    <color name="colorFigureNewGame">#FFFB00</color>
-    <color name="colorTextNewGame">#FFFFFF</color>
-    <color name="colorFigureExitGame">#FFFB00</color>
-    <color name="colorTextExitGame">#FFFFFF</color>
+    <color name="colorFigureNewGame">#FFFFD180</color>
+    <color name="colorTextNewGame">#272626</color>
+    <color name="colorFigureExitGame">#FFFFD180</color>
+    <color name="colorTextExitGame">#272626</color>
     <color name="colorTextWin">#FFFFFF</color>
 
-    <color name="colorFigureMenuOn">#FAAB92</color>
-    <color name="colorTextMenuOn">#0E0D0D</color>
-    <color name="colorFigureMenuBackToGame">#E4BBBB</color>
-    <color name="colorTextMenuBackToGame">#0E0D0D</color>
-    <color name="colorFigureMenuDemo">#F1B8B8</color>
-    <color name="colorTextMenuDemo">#0E0D0D</color>
+    <color name="colorFigureMenuOn">#FFFFD180</color>
+    <color name="colorTextMenuOn">#272626</color>
+    <color name="colorFigureMenuBackToGame">#FFFFD180</color>
+    <color name="colorTextMenuBackToGame">#272626</color>
+    <color name="colorFigureMenuDemo">#FFFFD180</color>
+    <color name="colorTextMenuDemo">#272626</color>
+    <color name="colorFigureMenuLabel">#F4E876</color>
+    <color name="colorTextMenuLabel">#272626</color>
 
     <color name="colorBigSquareOutForWin">#6A7DE4</color>
     <color name="colorBigSquareInForWin">#D6EACA</color>

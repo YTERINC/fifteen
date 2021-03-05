@@ -15,15 +15,15 @@ public class ComputationalFunctions {
     }
 
 
-    public void createRightArray(int[][] arr) {
-        int count = 1; // для заполнения массива по порядку с 1 до 15
+    public void createDemoArray(int[][] arrDemo) {
+        int countDemo = 1; // для заполнения массива по порядку с 1 до 15
          // заполняем массив по порядку
-        for (int i = 0; i < 4; i++)
-            for (int j = 0; j < 4; j++) {
-                arr[i][j] = +count;
-                ++count;
+        for (int id = 0; id < 4; id++)
+            for (int jd = 0; jd < 4; jd++) {
+                arrDemo[id][jd] = +countDemo;
+                ++countDemo;
             }
-        arr[3][3] = 0; // последней клетке присваиваем ноль, т.е. это будет пустая клетка
+        arrDemo[3][3] = 0; // последней клетке присваиваем ноль, т.е. это будет пустая клетка
 
     }
 
