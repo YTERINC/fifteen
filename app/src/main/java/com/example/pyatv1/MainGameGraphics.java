@@ -42,7 +42,7 @@ public class MainGameGraphics extends View {
     boolean switchMenu = false;
     // индикатор демонстрации правильного варианта
     boolean switchDemo = false;
-    // размеры экрана
+    // размеры экрана 
     int width;
     int height;
     // текст из ресурсов
@@ -81,11 +81,13 @@ public class MainGameGraphics extends View {
     int colorFigureMenuLabel = getResources().getColor(R.color.colorFigureMenuLabel);
     int colorTextMenuLabel = getResources().getColor(R.color.colorTextMenuLabel);
 
-        int colorBigSquareOutForWin = getResources().getColor(R.color.colorBigSquareOutForWin);
+    int colorBigSquareOutForWin = getResources().getColor(R.color.colorBigSquareOutForWin);
     int colorBigSquareInForWin = getResources().getColor(R.color.colorBigSquareInForWin);
     int colorSmallSquareInForWin = getResources().getColor(R.color.colorSmallSquareInForWin);
     int colorSmallSquareOutForWin = getResources().getColor(R.color.colorSmallSquareOutForWin);
     int colorTextNumeralForWin = getResources().getColor(R.color.colorTextNumeralForWin);
+
+    int colorFigureBlink = getResources().getColor(R.color.colorFigureBlink);
 
     // координаты для кнопки звука
     int muteRectX1;
@@ -360,7 +362,7 @@ public class MainGameGraphics extends View {
 
         switch (event.getAction()) {
             // касание началось
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_UP:
                 // если касание было начато в пределах квадрата
                 if (evX >= сompFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0-1) &&
                         evX <= сompFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, сompFunct.j0-1) &&
@@ -431,6 +433,7 @@ public class MainGameGraphics extends View {
                         switchMenu == false) {
                     SG.playSound(MusicOn);
                     switchMenu = true;
+                    backToBasicColor();
                     invalidate();
                 }
                 // кнопка "ЗВУК"
@@ -463,6 +466,7 @@ public class MainGameGraphics extends View {
                    colorBigSquareOut = getResources().getColor(R.color.colorBigSquareOut);
                    colorSmallSquareIn = getResources().getColor(R.color.colorSmallSquareIn);
                    colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
+                   backToBasicColor();
                    gameOver = false;
                    switchDemo = false;
                    invalidate();
@@ -473,6 +477,7 @@ public class MainGameGraphics extends View {
                         evY >= exitGameRectY1 &&
                         evY <= exitGameRectY2 &&
                         gameOver == true) {
+                    backToBasicColor();
                     System.exit(0);
                 }
                 // кнопка "НОВАЯ ИГРА" в МЕНЮ
@@ -486,6 +491,7 @@ public class MainGameGraphics extends View {
                     сompFunct.createMixedArray(arr);
                     SG.playSound(MusicOn);
                     switchDemo = false;
+                    backToBasicColor();
                     invalidate();
                 }
                 // кнопка "ВЫХОД" в МЕНЮ
@@ -495,6 +501,7 @@ public class MainGameGraphics extends View {
                         evY <=menuExitGameRectY2 &&
                         gameOver == false &&
                         switchMenu == true) {
+                    backToBasicColor();
                     System.exit(0);
                 }
                 // кнопка "НАЗАД В ИГРУ" в МЕНЮ
@@ -507,6 +514,7 @@ public class MainGameGraphics extends View {
                     switchMenu = false;
                     switchDemo = false;
                     SG.playSound(MusicOn);
+                    backToBasicColor();
                     invalidate();
                 }
                 // кнопка "ДЕМОНСТРАЦИЯ" в МЕНЮ
@@ -519,12 +527,101 @@ public class MainGameGraphics extends View {
                     switchDemo = true;
                     switchMenu = false;
                     SG.playSound(MusicOn);
+                    backToBasicColor();
                     invalidate();
                 }
                 break;
+/////////////////////////// для мигания кнопок
+            case MotionEvent.ACTION_DOWN:
+                // кнопка "МЕНЮ"
+                if (evX >= menuRectX1 &&
+                        evX <= menuRectX2 &&
+                        evY >= menuRectY1 &&
+                        evY <= menuRectY2 &&
+                        gameOver == false &&
+                        switchMenu == false) {
+                    colorFigureMenuOn = getResources().getColor(R.color.colorFigureBlink); // делаем другой цвет кнопки МЕНЮ
+                    invalidate();
+
+
+                }
+// кнопка "НОВАЯ ИГРА"
+               if (evX >= newGameRectX1 &&
+                        evX <= newGameRectX2 &&
+                        evY >= newGameRectY1 &&
+                        evY <= newGameRectY2 &&
+                        gameOver == true) {
+                   colorFigureNewGame = getResources().getColor(R.color.colorFigureBlink);
+                   invalidate();
+                   }
+                // кнопка "ВЫХОД"
+                if (evX >= exitGameRectX1 &&
+                        evX <= exitGameRectX2 &&
+                        evY >= exitGameRectY1 &&
+                        evY <= exitGameRectY2 &&
+                        gameOver == true) {
+                    colorFigureExitGame = getResources().getColor(R.color.colorFigureBlink);
+                    invalidate();
+                }
+                // кнопка "НОВАЯ ИГРА" в МЕНЮ
+                if (evX >= menuNewGameRectX1 &&
+                        evX <= menuNewGameRectX2 &&
+                        evY >= menuNewGameRectY1 &&
+                        evY <=menuNewGameRectY2 &&
+                        gameOver == false &&
+                        switchMenu == true) {
+                    colorFigureNewGame = getResources().getColor(R.color.colorFigureBlink);
+                    invalidate();
+                }
+                // кнопка "ВЫХОД" в МЕНЮ
+                if (evX >= menuExitGameRectX1 &&
+                        evX <= menuExitGameRectX2 &&
+                        evY >= menuExitGameRectY1 &&
+                        evY <=menuExitGameRectY2 &&
+                        gameOver == false &&
+                        switchMenu == true) {
+                    colorFigureExitGame = getResources().getColor(R.color.colorFigureBlink);
+                    invalidate();
+                }
+                // кнопка "НАЗАД В ИГРУ" в МЕНЮ
+                if (evX >= menuBackToGameRectX1 &&
+                        evX <= menuBackToGameRectX2 &&
+                        evY >= menuBackToGameRectY1 &&
+                        evY <=menuBackToGameRectY2 &&
+                        gameOver == false &&
+                        switchMenu == true) {
+                    colorFigureMenuBackToGame = getResources().getColor(R.color.colorFigureBlink);
+                    invalidate();
+                }
+                // кнопка "ДЕМОНСТРАЦИЯ" в МЕНЮ
+                if (evX >= menuDemoGameRectX1 &&
+                        evX <= menuDemoGameRectX2 &&
+                        evY >= menuDemoGameRectY1 &&
+                        evY <=menuDemoGameRectY2 &&
+                        gameOver == false &&
+                        switchMenu == true) {
+                    colorFigureMenuDemo = getResources().getColor(R.color.colorFigureBlink);
+                    invalidate();
+                }
+
+              break;
+
+            case MotionEvent.ACTION_MOVE:
+                backToBasicColor();
+                invalidate();
+
         }
         return true;
     }
+
+    void backToBasicColor() {
+        colorFigureMenuOn = getResources().getColor(R.color.colorFigureMenuOn);
+        colorFigureNewGame = getResources().getColor(R.color.colorFigureNewGame);
+        colorFigureExitGame = getResources().getColor(R.color.colorFigureExitGame);
+        colorFigureMenuBackToGame = getResources().getColor(R.color.colorFigureMenuBackToGame);
+        colorFigureMenuDemo = getResources().getColor(R.color.colorFigureMenuDemo);
+       }
+
 
 
 

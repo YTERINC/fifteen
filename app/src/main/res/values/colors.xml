@@ -41,4 +41,6 @@
     <color name="colorSmallSquareOutForWin">#F1B70B</color>
     <color name="colorTextNumeralForWin">#E48D8D</color>
 
+    <color name="colorFigureBlink">#8DFF80</color>
+
 </resources>
