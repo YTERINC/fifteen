@@ -7,5 +7,6 @@
     <string name="textMenu">МЕНЮ...</string>
     <string name="textMenuBackToGame">НАЗАД В ИГРУ</string>
     <string name="textMenuDemoGame">ДЕМОНСТРАЦИЯ</string>
+    <string name="textLabelGame">ПЯТНАШКИ</string>
 
 </resources>

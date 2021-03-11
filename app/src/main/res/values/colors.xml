@@ -25,7 +25,7 @@
     <color name="colorFigureExitGame">#FFFFD180</color>
     <color name="colorTextExitGame">#272626</color>
     <color name="colorTextWin">#FFFFFF</color>
-
+s
     <color name="colorFigureMenuOn">#FFFFD180</color>
     <color name="colorTextMenuOn">#272626</color>
     <color name="colorFigureMenuBackToGame">#FFFFD180</color>
@@ -42,5 +42,8 @@
     <color name="colorTextNumeralForWin">#E48D8D</color>
 
     <color name="colorFigureBlink">#8DFF80</color>
+
+    <color name="colorLabelGame">#EF9D0D</color>
+
 
 </resources>
