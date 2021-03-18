@@ -256,10 +256,10 @@ public class MainGameGraphics extends View {
             menuLabelRectX2 = compFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
             menuLabelRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
             menuLabelTextX =  menuLabelRectX1 + (menuLabelRectX2 -  menuLabelRectX1)/2;
-            menuLabelTextY = menuLabelRectY2 - (menuLabelRectY2 - menuLabelRectY1)/2 + yD/8;
-           // mPaint.setColor(colorFigureMenuLabel);
-            //canvas.drawRoundRect(menuLabelRectX1, menuLabelRectY1, menuLabelRectX2, menuLabelRectY2, 35, 35, mPaint);
-            mPaint.setTextSize((float) yD*1/3);
+            menuLabelTextY = menuLabelRectY2 - (menuLabelRectY2 - menuLabelRectY1)/2 + yD/6;
+            mPaint.setColor(colorFigureMenuLabel);
+            canvas.drawRoundRect(menuLabelRectX1, menuLabelRectY1, menuLabelRectX2, menuLabelRectY2, 35, 35, mPaint);
+            mPaint.setTextSize((float) yD*1/2);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorTextMenuLabel);
             canvas.drawText(textMenu, menuLabelTextX, menuLabelTextY, mPaint);

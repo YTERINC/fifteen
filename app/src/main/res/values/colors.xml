@@ -8,42 +8,42 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorBackground">#DADADA</color>
+    <color name="colorBackground">#F2F3F4</color>
     <color name="colorBigSquareOut">#041A93</color>
-    <color name="colorBigSquareIn">#3C9504</color>
-    <color name="colorSmallSquareIn">#FFCA28</color>
+    <color name="colorBigSquareIn">#269F26</color>
+    <color name="colorSmallSquareIn">#F2DF35</color>
     <color name="colorSmallSquareOut">#F1B70B</color>
-    <color name="colorTextNumeral">#F42222</color>
+    <color name="colorTextNumeral">#CA001F</color>
 
-    <color name="colorFigureMuteOn">#7A48FF3B</color>
-    <color name="colorFigureMuteOff">#FAAB92</color>
+    <color name="colorFigureMuteOn">#7A87D757</color>
+    <color name="colorFigureMuteOff">#F8B689</color>
     <color name="colorTextMuteOn">#7A1F201F</color>
     <color name="colorTextMuteOff">#424140</color>
 
-    <color name="colorFigureNewGame">#FFFFD180</color>
-    <color name="colorTextNewGame">#272626</color>
-    <color name="colorFigureExitGame">#FFFFD180</color>
-    <color name="colorTextExitGame">#272626</color>
-    <color name="colorTextWin">#FFFFFF</color>
-s
-    <color name="colorFigureMenuOn">#FFFFD180</color>
-    <color name="colorTextMenuOn">#272626</color>
-    <color name="colorFigureMenuBackToGame">#FFFFD180</color>
-    <color name="colorTextMenuBackToGame">#272626</color>
-    <color name="colorFigureMenuDemo">#FFFFD180</color>
-    <color name="colorTextMenuDemo">#272626</color>
-    <color name="colorFigureMenuLabel">#F4E876</color>
-    <color name="colorTextMenuLabel">#272626</color>
+    <color name="colorFigureNewGame">#99D9EA</color>
+    <color name="colorTextNewGame">#414141</color>
+    <color name="colorFigureExitGame">#99D9EA</color>
+    <color name="colorTextExitGame">#414141</color>
+    <color name="colorTextWin">#219F26</color>
+
+    <color name="colorFigureMenuOn">#99D9EA</color>
+    <color name="colorTextMenuOn">#414141</color>
+    <color name="colorFigureMenuBackToGame">#99D9EA</color>
+    <color name="colorTextMenuBackToGame">#414141</color>
+    <color name="colorFigureMenuDemo">#99D9EA</color>
+    <color name="colorTextMenuDemo">#414141</color>
+    <color name="colorFigureMenuLabel">#F8B689</color>
+    <color name="colorTextMenuLabel">#272727</color>
 
     <color name="colorBigSquareOutForWin">#6A7DE4</color>
     <color name="colorBigSquareInForWin">#D6EACA</color>
     <color name="colorSmallSquareInForWin">#F8E3A1</color>
     <color name="colorSmallSquareOutForWin">#F1B70B</color>
-    <color name="colorTextNumeralForWin">#E48D8D</color>
+    <color name="colorTextNumeralForWin">#EBB582</color>
 
     <color name="colorFigureBlink">#8DFF80</color>
 
-    <color name="colorLabelGame">#EF9D0D</color>
+    <color name="colorLabelGame">#269F26</color>
 
 
 </resources>
