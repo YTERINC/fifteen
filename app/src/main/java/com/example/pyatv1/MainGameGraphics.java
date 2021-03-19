@@ -21,7 +21,7 @@ public class MainGameGraphics extends View {
     int[][] arrDemo = new int[4][4];
     int[][] arrTemp = new int[4][4];
     final int X1 = 10; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
-    final int Y1 = 350; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
+    final int Y1 = 250; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
     int y2; //координата Y внешнего квадрата, справа
     final int THICKNESS_BIG_FRAME = 10; // толщина рамки большого квадрата
@@ -64,7 +64,6 @@ public class MainGameGraphics extends View {
     int colorBigSquareOut = getResources().getColor(R.color.colorBigSquareOut);
     int colorBigSquareIn = getResources().getColor(R.color.colorBigSquareIn);
     int colorSmallSquareIn = getResources().getColor(R.color.colorSmallSquareIn);
-    int colorSmallSquareOut = getResources().getColor(R.color.colorSmallSquareOut);
     int colorTextNumeral = getResources().getColor(R.color.colorTextNumeral);
 
     int colorFigureMuteOn = getResources().getColor(R.color.colorFigureMuteOn);
@@ -245,7 +244,7 @@ public class MainGameGraphics extends View {
             labelGameRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
             labelGameTextX = labelGameRectX1 + (labelGameRectX2 - labelGameRectX1)/2;
             labelGameTextY = labelGameRectY2 - (labelGameRectY2 - labelGameRectY1)/2 + yD/8;
-            mPaint.setTextSize((float) yD*1/2);
+            mPaint.setTextSize((float) yD*1/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorLabelGame);
             canvas.drawText(textLabelGame, labelGameTextX, labelGameTextY, mPaint);
@@ -253,16 +252,13 @@ public class MainGameGraphics extends View {
 
         // МЕНЮ
         if (!gameOver && switchMenu) {
-
             menuLabelRectX1 = compFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
             menuLabelRectY1 = compFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD*2/3;
             menuLabelRectX2 = compFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 3);
             menuLabelRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
             menuLabelTextX =  menuLabelRectX1 + (menuLabelRectX2 -  menuLabelRectX1)/2;
             menuLabelTextY = menuLabelRectY2 - (menuLabelRectY2 - menuLabelRectY1)/2 + yD/6;
-            mPaint.setColor(colorFigureMenuLabel);
-            //canvas.drawRoundRect(menuLabelRectX1, menuLabelRectY1, menuLabelRectX2, menuLabelRectY2, 35, 35, mPaint);
-            mPaint.setTextSize((float) yD*1/2);
+            mPaint.setTextSize((float) yD*1/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorLabelGame);
             canvas.drawText(textLabelGame, menuLabelTextX, menuLabelTextY, mPaint);
@@ -378,7 +374,6 @@ public class MainGameGraphics extends View {
             mPaint.setColor(colorTextExitGame);
             canvas.drawText(textExitGame, exitGameTextX, exitGameTextY, mPaint);
             invalidate(); // перерисовываем
-
         }
     }
 
@@ -387,7 +382,6 @@ public class MainGameGraphics extends View {
         // координаты Touch-события
         float evX = event.getX();
         float evY = event.getY();
-
         int tempArr;  // для временного хранения значения с нулем
 
         switch (event.getAction()) {
@@ -572,8 +566,6 @@ public class MainGameGraphics extends View {
                         !switchMenu) {
                     colorFigureMenuOn = getResources().getColor(R.color.colorFigureBlink); // делаем другой цвет кнопки МЕНЮ
                     invalidate();
-
-
                 }
 // кнопка "НОВАЯ ИГРА"
                if (evX >= newGameRectX1 &&
@@ -639,12 +631,9 @@ public class MainGameGraphics extends View {
             case MotionEvent.ACTION_MOVE:
                 backToBasicColor();
                 invalidate();
-
         }
         return true;
     }
-
-
     void backToBasicColor() {
         colorFigureMenuOn = getResources().getColor(R.color.colorFigureMenuOn);
         colorFigureNewGame = getResources().getColor(R.color.colorFigureNewGame);
@@ -657,5 +646,4 @@ public class MainGameGraphics extends View {
         Activity activity = (Activity)getContext();
         activity.finish();
     }
-
 }

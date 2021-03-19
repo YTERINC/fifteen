@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">pyatV1</string>
-    <string name="textFinishGame">ПОБЕДА!!!</string>
-    <string name="textNewGame">НОВАЯ ИГРА</string>
-    <string name="textMute">ЗВУК</string>
-    <string name="textExitGame">ВЫХОД</string>
-    <string name="textMenu">МЕНЮ...</string>
-    <string name="textMenuBackToGame">НАЗАД В ИГРУ</string>
-    <string name="textMenuDemoGame">ДЕМОНСТРАЦИЯ</string>
-    <string name="textLabelGame">ПЯТНАШКИ</string>
+    <string name="textFinishGame">VICTORY!!!</string>
+    <string name="textNewGame">NEW GAME</string>
+    <string name="textMute">MUTE</string>
+    <string name="textExitGame">EXIT</string>
+    <string name="textMenu">MENU...</string>
+    <string name="textMenuBackToGame">BACK TO GAME</string>
+    <string name="textMenuDemoGame">RIGHT OPTION</string>
+    <string name="textLabelGame">THE GAME OF FIFTEEN</string>
 
 </resources>
