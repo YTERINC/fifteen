@@ -1,11 +1,15 @@
 package com.example.pyatv1;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.core.app.ActivityCompat;
 
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();
@@ -236,16 +240,15 @@ public class MainGameGraphics extends View {
             canvas.drawText(textMenu, menuTextX, menuTextY, mPaint);
 
             labelGameRectX1 = compFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
-            labelGameRectY1 = compFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD*5/4;
+            labelGameRectY1 = compFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
             labelGameRectX2 = compFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 0)*4;
-            labelGameRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD*5/4;
+            labelGameRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
             labelGameTextX = labelGameRectX1 + (labelGameRectX2 - labelGameRectX1)/2;
             labelGameTextY = labelGameRectY2 - (labelGameRectY2 - labelGameRectY1)/2 + yD/8;
             mPaint.setTextSize((float) yD*1/2);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorLabelGame);
             canvas.drawText(textLabelGame, labelGameTextX, labelGameTextY, mPaint);
-
         }
 
         // МЕНЮ
@@ -258,11 +261,11 @@ public class MainGameGraphics extends View {
             menuLabelTextX =  menuLabelRectX1 + (menuLabelRectX2 -  menuLabelRectX1)/2;
             menuLabelTextY = menuLabelRectY2 - (menuLabelRectY2 - menuLabelRectY1)/2 + yD/6;
             mPaint.setColor(colorFigureMenuLabel);
-            canvas.drawRoundRect(menuLabelRectX1, menuLabelRectY1, menuLabelRectX2, menuLabelRectY2, 35, 35, mPaint);
+            //canvas.drawRoundRect(menuLabelRectX1, menuLabelRectY1, menuLabelRectX2, menuLabelRectY2, 35, 35, mPaint);
             mPaint.setTextSize((float) yD*1/2);
             mPaint.setTextAlign(Paint.Align.CENTER);
-            mPaint.setColor(colorTextMenuLabel);
-            canvas.drawText(textMenu, menuLabelTextX, menuLabelTextY, mPaint);
+            mPaint.setColor(colorLabelGame);
+            canvas.drawText(textLabelGame, menuLabelTextX, menuLabelTextY, mPaint);
 
             menuNewGameRectX1 = compFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
             menuNewGameRectY1 = compFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 2) - yD/2;
@@ -505,7 +508,7 @@ public class MainGameGraphics extends View {
                         evY <= exitGameRectY2 &&
                         gameOver) {
                     backToBasicColor();
-                    System.exit(0);
+                    finishFunction();
                 }
                 // кнопка "НОВАЯ ИГРА" в МЕНЮ
                 if (evX >= menuNewGameRectX1 &&
@@ -529,7 +532,7 @@ public class MainGameGraphics extends View {
                         !gameOver &&
                         switchMenu) {
                     backToBasicColor();
-                    System.exit(0);
+                    finishFunction();
                 }
                 // кнопка "НАЗАД В ИГРУ" в МЕНЮ
                 if (evX >= menuBackToGameRectX1 &&
@@ -641,6 +644,7 @@ public class MainGameGraphics extends View {
         return true;
     }
 
+
     void backToBasicColor() {
         colorFigureMenuOn = getResources().getColor(R.color.colorFigureMenuOn);
         colorFigureNewGame = getResources().getColor(R.color.colorFigureNewGame);
@@ -648,5 +652,10 @@ public class MainGameGraphics extends View {
         colorFigureMenuBackToGame = getResources().getColor(R.color.colorFigureMenuBackToGame);
         colorFigureMenuDemo = getResources().getColor(R.color.colorFigureMenuDemo);
        }
+
+    private void finishFunction() {
+        Activity activity = (Activity)getContext();
+        activity.finish();
+    }
 
 }
