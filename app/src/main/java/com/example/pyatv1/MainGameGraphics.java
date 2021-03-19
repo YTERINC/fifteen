@@ -5,11 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.Build;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
-
-import androidx.core.app.ActivityCompat;
 
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();
@@ -21,7 +19,7 @@ public class MainGameGraphics extends View {
     int[][] arrDemo = new int[4][4];
     int[][] arrTemp = new int[4][4];
     final int X1 = 10; //отступ рамки, отсюда идет расчет остальных размеров // координата X внешнего квадрата, слева
-    final int Y1 = 250; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
+    int y1 = 250; //отступ рамки, отсюда идет расчет остальных размеров // координата Y внешнего квадрата, слева
     int x2; //координата X внешнего квадрата, справа
     int y2; //координата Y внешнего квадрата, справа
     final int THICKNESS_BIG_FRAME = 10; // толщина рамки большого квадрата
@@ -178,11 +176,12 @@ public class MainGameGraphics extends View {
         super.onDraw(canvas);
         width = getWidth();
         height = getHeight();
+        y1 = width/5;
         x2 = width - X1;
-        y2 = x2 - X1 + Y1;
+        y2 = x2 - X1 + y1;
         // рамка внутреннего большого квадрата
         x3 = X1 + THICKNESS_BIG_FRAME;
-        y3 = Y1 + THICKNESS_BIG_FRAME;
+        y3 = y1 + THICKNESS_BIG_FRAME;
         x4 = x2 - THICKNESS_BIG_FRAME;
         y4 = y2 - THICKNESS_BIG_FRAME;
         // стиль Заливка
@@ -195,7 +194,7 @@ public class MainGameGraphics extends View {
         if (!switchMenu) {
             // Рисуем большой прямоугольник
             mPaint.setColor(colorBigSquareOut);
-            canvas.drawRect(X1, Y1, x2, y2, mPaint);
+            canvas.drawRect(X1, y1, x2, y2, mPaint);
             // Рисуем внутренний прямоугольник в большом, для создания рамки
             mPaint.setColor(colorBigSquareIn);
             canvas.drawRect(x3, y3, x4, y4, mPaint);
@@ -238,16 +237,18 @@ public class MainGameGraphics extends View {
             mPaint.setColor(colorTextMenuOn);
             canvas.drawText(textMenu, menuTextX, menuTextY, mPaint);
 
-            labelGameRectX1 = compFunct.calculateSmallSquareX1(x3, xD, DIST_BETWEEN_SQUARES, 0);
-            labelGameRectY1 = compFunct.calculateSmallSquareY1(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
-            labelGameRectX2 = compFunct.calculateSmallSquareX2(x3, xD, DIST_BETWEEN_SQUARES, 0)*4;
-            labelGameRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
+            labelGameRectX1 = 0;
+            labelGameRectY1 = 0;
+            labelGameRectX2 = width;
+            labelGameRectY2 = y1;
             labelGameTextX = labelGameRectX1 + (labelGameRectX2 - labelGameRectX1)/2;
             labelGameTextY = labelGameRectY2 - (labelGameRectY2 - labelGameRectY1)/2 + yD/8;
+            mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             mPaint.setTextSize((float) yD*1/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorLabelGame);
             canvas.drawText(textLabelGame, labelGameTextX, labelGameTextY, mPaint);
+            mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
 
         // МЕНЮ
@@ -258,6 +259,7 @@ public class MainGameGraphics extends View {
             menuLabelRectY2 = compFunct.calculateSmallSquareY2(y3, yD, DIST_BETWEEN_SQUARES, 0) - yD;
             menuLabelTextX =  menuLabelRectX1 + (menuLabelRectX2 -  menuLabelRectX1)/2;
             menuLabelTextY = menuLabelRectY2 - (menuLabelRectY2 - menuLabelRectY1)/2 + yD/6;
+            mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             mPaint.setTextSize((float) yD*1/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorLabelGame);
@@ -271,6 +273,7 @@ public class MainGameGraphics extends View {
             menuNewGameTextY = menuNewGameRectY2 - (menuNewGameRectY2 - menuNewGameRectY1)/2 + yD/8;
             mPaint.setColor(colorFigureNewGame);
             canvas.drawRoundRect(menuNewGameRectX1, menuNewGameRectY1, menuNewGameRectX2, menuNewGameRectY2, 35, 35, mPaint);
+            mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
             mPaint.setTextSize((float) yD*1/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorTextNewGame);
@@ -344,27 +347,28 @@ public class MainGameGraphics extends View {
          }
         if (gameOver && !switchDemo) {
             newGameRectX1 = X1;
-            newGameRectY1 = y2 + 50;
+            newGameRectY1 = y2 + yD/8;
             newGameRectX2 = x2;
-            newGameRectY2 = y2 + yD - 50;
-            newGameTextX = (x2 - X1)/2 + X1;
-            newGameTextY = y2 + yD*3/4;
+            newGameRectY2 = y2 + yD/2 + yD/8;
+            newGameTextX = (newGameRectX2 - newGameRectX1)/2 + newGameRectX1;
+            newGameTextY = newGameRectY2 - (newGameRectY2 - newGameRectY1)/2 + yD/8;
 
             exitGameRectX1 = X1;
-            exitGameRectY1 = Y1 - yD + 50;
+            exitGameRectY1 = y1 - yD/2 - yD/8;
             exitGameRectX2 = x2;
-            exitGameRectY2 = Y1 - 50;
-            exitGameTextX = (x2 - X1)/2 + X1;
-            exitGameTextY = Y1 - yD/4;
+            exitGameRectY2 = y1 - yD/8;
+            exitGameTextX = (exitGameRectX2 - exitGameRectX1)/2 + exitGameRectX1;
+            exitGameTextY = exitGameRectY2 - (exitGameRectY2 - exitGameRectY1)/2 + yD/8;
             ///////////////////
             mPaint.setColor(colorTextWin);
+            mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             mPaint.setTextSize((float) yD*2/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             canvas.drawText(textFinishGame, (float) ((x4 - x3)/2 + x3), (float) ((y4 - y3)/2 + y3), mPaint);
             // Новая игра
             mPaint.setColor(colorFigureNewGame);
             canvas.drawRect(newGameRectX1, newGameRectY1, newGameRectX2, newGameRectY2, mPaint);
-            mPaint.setTextSize((float) yD*2/3);
+            mPaint.setTextSize((float) yD*1/3);
             mPaint.setTextAlign(Paint.Align.CENTER);
             mPaint.setColor(colorTextNewGame);
             canvas.drawText(textNewGame, newGameTextX, newGameTextY, mPaint);
@@ -374,6 +378,7 @@ public class MainGameGraphics extends View {
             mPaint.setColor(colorTextExitGame);
             canvas.drawText(textExitGame, exitGameTextX, exitGameTextY, mPaint);
             invalidate(); // перерисовываем
+            mPaint.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
     }
 
