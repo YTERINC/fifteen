@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pyatV1</string>
+    <string name="app_name">Fifteen</string>
     <string name="textFinishGame">VICTORY!!!</string>
     <string name="textNewGame">NEW GAME</string>
     <string name="textMute">MUTE</string>

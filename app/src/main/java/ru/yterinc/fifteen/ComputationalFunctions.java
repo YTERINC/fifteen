@@ -1,4 +1,4 @@
-package com.example.pyatv1;
+package ru.yterinc.fifteen;
 
 import java.util.Random;
 

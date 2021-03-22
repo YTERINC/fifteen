@@ -1,4 +1,4 @@
-package com.example.pyatv1;
+package ru.yterinc.fifteen;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.yterinc.fifteen.R;
 
 public class MainGameGraphics extends View {
     public Paint mPaint = new Paint();

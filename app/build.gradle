@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.example.pyatv1"
+        applicationId "ru.yterinc.fifteen"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

@@ -1,9 +1,8 @@
-package com.example.pyatv1;
+package ru.yterinc.fifteen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
-
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +14,5 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         MainGameGraphics mainGameGraphics = new MainGameGraphics(this);
         setContentView(mainGameGraphics);
-
     }
 }
