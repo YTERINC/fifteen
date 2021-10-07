@@ -8,7 +8,7 @@ public class ComputationalFunctions {
     int i0;
     int j0;
 
-    public void copyArray(int destArr[][], int srcArr[][]) {
+    public void copyArray(int[][] destArr, int[][] srcArr) {
         for(int ic=0; ic<4; ic++)
             for(int jc=0; jc<4; jc++)
                 destArr[ic][jc]=srcArr[ic][jc];
@@ -43,14 +43,14 @@ public class ComputationalFunctions {
         j0 = 3;
 
         // размешиваем массив правильными ходами
-         for (int count2 = 0; count2 < 5; count2++) {
+         for (int count2 = 0; count2 < 500; count2++) {
              rand = rnd.nextInt(4); // случайный ход от 0 до 3
               // rand=0 - перемещение пустой клетке (0) влево
               // rand=1 - перемещение пустой клетке (0) вверх
               // rand=2 - перемещение пустой клетке (0) вправо
               // rand=3 - перемещение пустой клетке (0) вниз
              if (i0 == 0 && rand == 1) rand = 3; // т.е. если вверх нельзя переместить мы идем вниз
-             if (i0 == 3 && rand == 3) rand = 1; // т.е. если винз нельзя переместить мы идем вверх
+             if (i0 == 3 && rand == 3) rand = 1; // т.е. если вниз нельзя переместить мы идем вверх //
              if (j0 == 0 && rand == 0) rand = 2; // т.е. если влево нельзя переместить мы идем вправо
              if (j0 == 3 && rand == 2) rand = 0; // т.е. если вправо нельзя переместить мы идем влево
 
